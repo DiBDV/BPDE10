@@ -2,13 +2,16 @@ package com.company;
 
 // IS A
 
-public class Employee {
+public abstract class Employee {
     private String name;
     private  int salary;
     private  int experience=0;
+
     protected  int temp;
 
-    public Employee(String name, int salary, int experience) {
+
+
+    public Employee(String name, int salary, int experience ) {
         this.name = name;
         this.salary = salary;
         this.experience = experience;
@@ -40,10 +43,6 @@ public class Employee {
                 '}';
     }
 
-    public void pay(){
-        System.out.println("I've got "+ salary);
-    }
-    public void doWork(){
-        System.out.println("Employee: do my work");
-    }
+   public  abstract void pay();
+   public abstract void doWork();
 }

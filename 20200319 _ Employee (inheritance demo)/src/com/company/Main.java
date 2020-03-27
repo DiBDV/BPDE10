@@ -1,11 +1,19 @@
 package com.company;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /*
 inheritance demo project
  */
 public class Main {
 
     public static void main(String[] args) {
-        Employee em1 = new Employee("Nick", 1000);
+        //Employee em1 = new Employee("Nick", 1000); // Employee is abstract class.
+                                                    // it means that we don't be able to create an object of Employee
+        Employee em1 = new Programmer("Nick", 1000,5); //
+
         System.out.println(em1);
         em1.doWork();
         em1.pay();
@@ -30,6 +38,20 @@ public class Main {
             employees[i].pay();
             employees[i].doWork();
         }
+
+        //--------------------------
+        System.out.println("------ Programmer is an Employee");
+         Employee progr2 = new Programmer("Andy", 1000, 1);
+        progr2.doWork();
+
+
+        Programmer prog3= (Programmer) progr2;
+
+
+
+
+
+
 
         //Object --> Employee --> Manager,Programmer
     }
