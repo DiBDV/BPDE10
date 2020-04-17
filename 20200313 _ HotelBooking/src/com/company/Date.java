@@ -6,15 +6,40 @@ public class Date {
     private int day;
     private int month;
     private int year;
-    private Random rnd = new Random(System.currentTimeMillis());
+    private static Random rnd = new Random(System.currentTimeMillis());
 
+    static class Interval{
+        Date start;
+        Date finish;
+
+        public Interval(Date start, Date finish) {
+            if (start.compareTo(finish)<=0) {
+                this.start = start;
+                this.finish = finish;
+            } else {
+                this.start = finish;
+                this.finish = start;
+            }
+        }
+        private int getDays(){
+            int rez=0;
+            for (int i=start.getYear();i<finish.getYear();i++){
+                Date tempDate = new Date(1,1,i);
+                rez+=tempDate.getDaysPerYear();
+            }
+            rez-=start.daysFromNY();
+            rez+=finish.daysFromNY();
+            return rez;
+        }
+
+
+    }
 
     public Date(int day, int month, int year){
         this.day=day;
         this.month = month;
         this.year= year;
     }
-
 
     public int getDay() {
         return day;
@@ -28,24 +53,11 @@ public class Date {
         return year;
     }
 
-    public void setDay(int day){
-        this.day = day;
-    }
-
-
     public String toString(){
         String s="Date: "+day+".";
         s+=month+".";
         s+=year;
         return s;
-    }
-    public  void print(){
-        System.out.println(this.toString());
-    }
-    public static void print(Date[] dates){
-        for (int i=0; i<dates.length;i++){
-            dates[i].print();
-        }
     }
 
     public boolean isCorrect(){
@@ -57,16 +69,13 @@ public class Date {
     private boolean isCorrectYear(){
         return (year>0);
     }
+
     private boolean isCorrectMonth(){
         return (month>0)&&(month<=12);
     }
 
-    public boolean isCorrectDay(){
-        if((day>0)&&(day<=getDayPerMonth())){
-            return true;
-        } else {
-            return false;
-        }
+    private boolean isCorrectDay(){
+        return ((day>0)&&(day<=getDayPerMonth()));
     }
 
     public int getDayPerMonth(){
@@ -78,13 +87,13 @@ public class Date {
         }
     }
 
-
     public boolean isLeapYear(){
         return (
                 ((year%4==0)&&(year%100!=0)) ||
                         (year%400==0)
         );
     }
+
     public static boolean isLeapYear(int year){
         return (
                 ((year%4==0)&&(year%100!=0)) ||
@@ -92,8 +101,7 @@ public class Date {
         );
     }
 
-
-    public Date  getRandomDate(){
+    public static Date  getRandomDate(){
         Date date;
         do {
             int year = getRandomInt(1900, 2030);
@@ -106,8 +114,7 @@ public class Date {
 
     }
 
-
-    private int getRandomInt(int min, int max) {
+    private static int getRandomInt(int min, int max) {
         return  min+rnd.nextInt(max-min+1);
     }
 
@@ -169,6 +176,41 @@ public class Date {
             }
         }
     }
+
+    private static boolean isIntersect (Interval interval1,Interval interval2){
+        return !((interval1.start.compareTo(interval2.finish)>0) ||
+        (interval2.start.compareTo(interval1.finish)>0));
+    }
+
+    public static  boolean isIntersect (Date start1,Date finish1, Date start2,Date finish2){
+        Interval interval1=new Interval(start1, finish1);
+        Interval interval2=new Interval(start2, finish2);
+        return isIntersect(interval1, interval2);
+    }
+
+    public int daysFromNY(){
+        int rez=0;
+        for (int i=1; i<this.month;i++){
+            Date tempDate=new Date(1, i, this.year);
+            rez+=tempDate.getDayPerMonth();
+        }
+        rez+=this.day;
+        return rez;
+    }
+
+    public int getDaysPerYear(){
+        return (isLeapYear())?366:365;
+    }
+
+    public int daysToNY(){
+        return getDaysPerYear()-this.daysFromNY();
+    }
+
+    public static int getDaysBetween(Date start,Date finish){
+        Interval interval = new Interval(start, finish);
+        return interval.getDays();
+    }
+
 
 //[3][4][6][8][10][][]
 

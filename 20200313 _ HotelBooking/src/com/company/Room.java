@@ -1,8 +1,9 @@
 package com.company;
 
-public class Room {
+public abstract class Room {
     private String number;
     private int capacity;
+    private final double basePrice=100;
 
     public Room(String number, int capacity) {
         this.number = number;
@@ -14,6 +15,13 @@ public class Room {
         this.capacity = 1;
     }
 
+    public abstract double getPrice();
+    public abstract void duService();
+
+    protected double getBasePrice() {
+        return basePrice;
+    }
+
     public String getNumber() {
         return number;
     }
@@ -22,11 +30,4 @@ public class Room {
         return capacity;
     }
 
-    @Override
-    public String toString() {
-        return "Room{" +
-                "number='" + number + '\'' +
-                ", capacity=" + capacity +
-                '}';
-    }
 }

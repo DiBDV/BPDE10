@@ -1,4 +1,7 @@
 package com.company;
+
+import java.util.Objects;
+
 /*
              Person
              Date          -> Boking
@@ -18,6 +21,22 @@ public class Booking {
         this.endDate = endDate;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
     @Override
     public String toString() {
         return "Booking{" +
@@ -26,5 +45,21 @@ public class Booking {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return Objects.equals(person, booking.person) &&
+                Objects.equals(room, booking.room) &&
+                Objects.equals(startDate, booking.startDate) &&
+                Objects.equals(endDate, booking.endDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(person, room, startDate, endDate);
     }
 }
