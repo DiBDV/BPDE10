@@ -54,7 +54,7 @@ public class Main {
 
         System.out.println("-------------------------------------------------------------------------------------------");
         Date d5= new Date(31, 12, 2020);
-        Date d6= new Date(1, 1, 2020);
+        Date d6= new Date(1, 1, 2018);
         System.out.println(d5.daysFromNY());// 366
         System.out.println(d5.daysToNY());//0
         System.out.println(Date.getDaysBetween(d5,d6));//365
