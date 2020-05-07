@@ -1,5 +1,9 @@
 package com.company;
 
+import java.util.Comparator;
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -59,6 +63,42 @@ public class Main {
         System.out.println(d5.daysToNY());//0
         System.out.println(Date.getDaysBetween(d5,d6));//365
 
+        System.out.println("------- test list -------");
+        BookingList2 bookingList2 = new BookingList2();
+        System.out.println(bookingList2);
+        bookingList2.add(b1);
+        bookingList2.add(b2);
+        System.out.println(bookingList2);
+
+
+        Set<Date> treeSet = new TreeSet<>(new DateComparator());
+        treeSet.add(d1);
+        treeSet.add(d2);
+        treeSet.add(d3);
+        treeSet.add(d1);
+        System.out.println(treeSet.size());
+        System.out.println(treeSet);
+
+        Date d7= new Date(12, 10, 2018);
+        Date d8= new Date(12, 12, 2018);
+        System.out.println("-------------------------- treeSet2");
+        Set<Date> treeSet2 = new TreeSet<>(new DateComparator2());
+        treeSet2.addAll(treeSet);
+        treeSet2.add(d7);
+        treeSet2.add(d8);
+        System.out.println(treeSet2.size());
+        System.out.println(treeSet2);
+
+        System.out.println("-------------------------- treeSet3");
+        Set<Date> treeSet3 = new TreeSet<>(new Comparator<Date>() {
+            @Override
+            public int compare(Date o1, Date o2) {
+                return o1.getMonth()-o2.getMonth();
+            }
+        });
+        treeSet3.addAll(treeSet2);
+        System.out.println(treeSet3.size());
+        System.out.println(treeSet3);
 
     }
 }

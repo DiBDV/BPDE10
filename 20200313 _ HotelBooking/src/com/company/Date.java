@@ -1,12 +1,18 @@
 package com.company;
 
 import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 
-public class Date {
+public class Date   {
+
     private int day;
     private int month;
     private int year;
     private static Random rnd = new Random(System.currentTimeMillis());
+
+
+
 
     static class Interval{
         Date start;
@@ -117,6 +123,7 @@ public class Date {
     private static int getRandomInt(int min, int max) {
         return  min+rnd.nextInt(max-min+1);
     }
+
 
     public  int compareTo(Date date){
         if(this.year!=date.year){
